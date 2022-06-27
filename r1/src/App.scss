@@ -266,7 +266,7 @@
         // padding: 0;
         // margin: 0;
       }
-      .list-content-front-modal {
+      .list-content-front {
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -282,12 +282,12 @@
           font-size: 10px;
           margin-left: 5px;
         }
-        p {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
+        // p {
+        //   width: 100%;
+        //   display: flex;
+        //   flex-direction: row;
+        //   flex-wrap: wrap;
+        // }
         h4 {
           text-align: center;
         }

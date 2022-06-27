@@ -50,11 +50,7 @@ export default function Front({ show }) {
                 Bibliotheque
               </a>
 
-              <div
-                className="hamburger"
-                // style={{ display: hamburgerOpen ? "inline" : "none" }}
-                // onClick={toggleHamburger}
-              >
+              <div className="hamburger">
                 <Navigation />
               </div>
               <div
@@ -79,14 +75,6 @@ export default function Front({ show }) {
                 <Link className="nav-link" to="/login">
                   Admin
                 </Link>
-
-                {/* <Link
-                  className="nav-link"
-                 
-                  to="/admin"
-                >
-                  Admin
-                </Link> */}
               </div>
             </nav>
           </div>

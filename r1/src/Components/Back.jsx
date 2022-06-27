@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-// import Create from "./Create";
+
 import { Link } from "react-router-dom";
 
 import { getDataFromServer } from "../Actions";
@@ -10,8 +10,6 @@ import Create from "./Create";
 import Edit from "./Edit";
 import Navigation from "../Navigation/Navigation";
 import { authConfig } from "../Functions/auth";
-
-// import { authConfig } from "../Functions/auth.js";
 
 function Back() {
   const [books, dispachBooks] = useReducer(reducer, []);

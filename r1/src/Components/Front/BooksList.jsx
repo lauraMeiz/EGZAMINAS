@@ -1,6 +1,6 @@
 import none from "../../img/none.png";
 
-function BooksList({ book, setDeleteId, setModalData }) {
+function BooksList({ book }) {
   return (
     <li className="list-items">
       <div className="tree-line tree-line-front">
