@@ -30,7 +30,7 @@ function LoginPage() {
         <div className="create-tab">
           <div className="form-group">
             <label>Your name: </label>
-            name:{" "}
+            Name:{" "}
             <input
               type="text"
               value={user}

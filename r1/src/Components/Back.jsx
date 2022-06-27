@@ -9,6 +9,7 @@ import reducer from "../Reducer/reducer";
 import Create from "./Create";
 import Edit from "./Edit";
 import Navigation from "../Navigation/Navigation";
+import { authConfig } from "../Functions/auth";
 
 // import { authConfig } from "../Functions/auth.js";
 
@@ -51,10 +52,12 @@ function Back() {
   }, [deleteId]);
 
   useEffect(() => {
-    axios.get("http://localhost:3005/books-manager").then((res) => {
-      console.log(res.data);
-      dispachBooks(getDataFromServer(res.data));
-    });
+    axios
+      .get("http://localhost:3005/admin/books-manager", authConfig())
+      .then((res) => {
+        console.log(res.data);
+        dispachBooks(getDataFromServer(res.data));
+      });
   }, [lastUpdate]);
 
   useEffect(() => {
@@ -102,7 +105,7 @@ function Back() {
                 <Link className="nav-link" to="/drama">
                   Drama
                 </Link>
-                <Link className="nav-link" to="/admin">
+                <Link className="nav-link" to="/login">
                   Admin
                 </Link>
               </div>

@@ -11,9 +11,8 @@ export default function Front({ show }) {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
 
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  //   const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
 
-  //   const [deleteId, setDeleteId] = useState(null);
   useEffect(() => {
     axios.get("http://localhost:3005/books-list/" + show).then((res) => {
       console.log(res.data);
@@ -21,24 +20,15 @@ export default function Front({ show }) {
     });
   }, [show, lastUpdate]);
 
-  // const doSearch = (e) => {
-  //   setSearch(e.target.value);
-  //   console.log(e.target.value);
-  //   axios
-  //     .get("http://localhost:3005/autors-list-search/?s=" + e.target.value)
-  //     .then((res) => {
-  //       dispachAutors(getDataFromServer(res.data));
-  //     });
-  // };
-  //   const doSearch = (e) => {
-  //     setSearch(e.target.value);
-  //     console.log(e.target.value);
-  //     axios
-  //       .get("http://localhost:3005/books-search/?s=" + e.target.value)
-  //       .then((res) => {
-  //         setBooks(res.data);
-  //       });
-  //   };
+  const doSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+    axios
+      .get("http://localhost:3005/books-list-search/?s=" + e.target.value)
+      .then((res) => {
+        dispachBooks(getDataFromServer(res.data));
+      });
+  };
 
   const toggleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
@@ -74,45 +64,25 @@ export default function Front({ show }) {
                     : "navigation-bar show"
                 }
               >
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/"
-                >
+                <Link className="nav-link" to="/">
                   Home
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/documentary"
-                >
+                <Link className="nav-link" to="/documentary">
                   Documentary
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/animation"
-                >
+                <Link className="nav-link" to="/animation">
                   Animation
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/drama"
-                >
+                <Link className="nav-link" to="/drama">
                   Drama
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/admin"
-                >
+                <Link className="nav-link" to="/admin">
                   Admin
                 </Link>
 
                 {/* <Link
                   className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
+                 
                   to="/admin"
                 >
                   Admin
@@ -122,21 +92,13 @@ export default function Front({ show }) {
           </div>
         </div>
       </div>
-      <div className="container">
-        <div className="row-logout">
-          <div className="logout">
-            <Link className="logout-a" to="/logout">
-              Log OUT
-            </Link>
-          </div>
-        </div>
-      </div>
-      {/* <div className="row-search">
+
+      <div className="row-search">
         <div className="oneSearch">
-          <label>Search</label>
+          <label>Search by title</label>
           <input type="text" onChange={doSearch} value={search}></input>
         </div>
-      </div> */}
+      </div>
       <div className="container">
         <div className="row">
           <div className="column-create"></div>
