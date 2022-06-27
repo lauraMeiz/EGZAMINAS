@@ -7,16 +7,10 @@ import { getDataFromServer } from "../Actions";
 import BooksList from "./BooksList.jsx";
 import reducer from "../Reducer/reducer";
 import Create from "./Create";
+import Edit from "./Edit";
+import Navigation from "../Navigation/Navigation";
 
-// import Create from "./Create.jsx";
-// import Edit from "./Edit.jsx";
-// import CreateBook from "./CreateBook.jsx";
 // import { authConfig } from "../Functions/auth.js";
-// import Edit from "./Edit";
-// import { authConfig } from "../Functions/auth.js";
-// import Navigation from "./Navigation/Navigation";
-
-// import EditBoxes from "./EditBoxes";
 
 function Back() {
   const [books, dispachBooks] = useReducer(reducer, []);
@@ -24,52 +18,37 @@ function Back() {
 
   const [createData, setCreateData] = useState(null);
 
-  //   const [editData, setEditData] = useState(null);
-
-  //   const [deleteId, setDeleteId] = useState(null);
-  //   const [modalData, setModalData] = useState(null);
+  const [editData, setEditData] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [modalData, setModalData] = useState(null);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const toggleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
+  useEffect(() => {
+    if (null === editData) {
+      return;
+    }
+    axios
+      .put("http://localhost:3005/books-manager/" + editData.id, editData)
+      .then((res) => {
+        console.log(res);
+        setLastUpdate(Date.now());
+      });
+  }, [editData]);
 
-  //   const [boxes, setBoxes] = useState([]);
-  //   useEffect(() => {
-  //     if (null === editData) {
-  //       return;
-  //     }
-  //     axios
-  //       .put("http://localhost:3005/autors-manager/" + editData.id, editData)
-  //       .then((res) => {
-  //         console.log(res);
-  //         setLastUpdate(Date.now());
-  //       });
-  //   }, [editData]);
-
-  //   useEffect(() => {
-  //     if (null === deleteId) {
-  //       return;
-  //     }
-  //     axios
-  //       .delete("http://localhost:3005/autors-manager/" + deleteId.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         setLastUpdate(Date.now());
-  //       });
-  //   }, [deleteId]);
-
-  //   useEffect(() => {
-  //     if (null === deleteId) {
-  //       return;
-  //     }
-  //     axios
-  //       .delete("http://localhost:3005/autors-books/" + deleteId.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         setLastUpdate(Date.now());
-  //       });
-  //   }, [deleteId]);
+  useEffect(() => {
+    if (null === deleteId) {
+      return;
+    }
+    axios
+      .delete("http://localhost:3005/books-manager/" + deleteId.id)
+      .then((res) => {
+        console.log(res);
+        setLastUpdate(Date.now());
+      });
+  }, [deleteId]);
 
   useEffect(() => {
     axios.get("http://localhost:3005/books-manager").then((res) => {
@@ -77,30 +56,6 @@ function Back() {
       dispachBooks(getDataFromServer(res.data));
     });
   }, [lastUpdate]);
-
-  //   useEffect(() => {
-  //     axios.get("http://localhost:3005/autors-books").then((res) => {
-  //       console.log(res.data);
-  //       setBooks(res.data);
-  //     });
-  //   }, [lastUpdate]);
-
-  //   const saveBooks = (title, description, price, photo, id) => {
-  //     console.log(title, description, price, photo, id);
-  //     console.log(autors.id);
-  //     axios
-  //       .post("http://localhost:3005/autors-books", {
-  //         title: title,
-  //         description: description,
-  //         price: price,
-  //         photo: photo,
-  //         autor_id: id,
-  //       })
-  //       .then((res) => {
-  //         setLastUpdate(Date.now());
-  //         //
-  //       });
-  //   };
 
   useEffect(() => {
     if (null === createData) {
@@ -115,8 +70,6 @@ function Back() {
       });
   }, [createData]);
 
-  //   console.log(containers);
-  //   console.log(containers.id);
   return (
     <>
       <div className="container">
@@ -124,15 +77,11 @@ function Back() {
           <div className="header">
             <nav className="navigation">
               <a className="header-title" href="#">
-                Logistics Company
+                Bibliotheque
               </a>
 
-              <div
-                className="hamburger"
-                // style={{ display: hamburgerOpen ? "inline" : "none" }}
-                onClick={toggleHamburger}
-              >
-                {/* <Navigation /> */}
+              <div className="hamburger" onClick={toggleHamburger}>
+                <Navigation />
               </div>
               <div
                 className={
@@ -141,49 +90,21 @@ function Back() {
                     : "navigation-bar show"
                 }
               >
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/"
-                >
+                <Link className="nav-link" to="/">
                   Home
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/documentary"
-                >
+                <Link className="nav-link" to="/documentary">
                   Documentary
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/animation"
-                >
+                <Link className="nav-link" to="/animation">
                   Animation
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/drama"
-                >
+                <Link className="nav-link" to="/drama">
                   Drama
                 </Link>
-                <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/admin"
-                >
+                <Link className="nav-link" to="/admin">
                   Admin
                 </Link>
-
-                {/* <Link
-                  className="nav-link"
-                  // style={{ display: hamburgerOpen ? "none" : "inline" }}
-                  to="/admin"
-                >
-                  Admin
-                </Link> */}
               </div>
             </nav>
           </div>
@@ -202,60 +123,38 @@ function Back() {
         <div className="row">
           <div className="column-create">
             <Create books={books} setCreateData={setCreateData}></Create>
-            <div className="row">
-              <div className="column-create">
-                {/* <Create
-                  books={books}
-                
-                  setBooks={setBooks}
-                  setLastUpdate={setLastUpdate}
-                  saveBooks={saveBooks}
-                ></Create> */}
-              </div>
-            </div>
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
-          <div className="column-create">
-            {/* <CreateBoxes
-              boxes={boxes}
-              containers={containers}
-              setBoxes={setBoxes}
-              setLastUpdate={setLastUpdate}
-              saveBoxes={saveBoxes}
-            ></CreateBoxes> */}
-            <div className="colum-list-front">
-              <div className=" card-body-front">
-                <ul>
-                  {books.map((book) => (
-                    <BooksList
-                      key={book.id}
-                      book={book}
-                      //   container={container}
-                      //   setModalData={setModalData}
-                      //   modalData={modalData}
-                      //   setEditData={setEditData}
-                      //   setDeleteId={setDeleteId}
-                    >
-                      {" "}
-                    </BooksList>
-                  ))}
-                </ul>
-              </div>
+          <div className="colum-list-front">
+            <div className=" card-body-front">
+              <ul>
+                {books.map((book) => (
+                  <BooksList
+                    key={book.id}
+                    book={book}
+                    setModalData={setModalData}
+                    modalData={modalData}
+                    setEditData={setEditData}
+                    setDeleteId={setDeleteId}
+                  >
+                    {" "}
+                  </BooksList>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      {/* <Edit
+      <Edit
         setEditData={setEditData}
         setModalData={setModalData}
         modalData={modalData}
-        autors={autors}
         books={books}
         setDeleteId={setDeleteId}
-      ></Edit> */}
+      ></Edit>
     </>
   );
 }

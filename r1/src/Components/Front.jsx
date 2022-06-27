@@ -5,13 +5,14 @@ import axios from "axios";
 import { getDataFromServer } from "../Actions";
 import reducer from "../Reducer/reducer";
 import BooksList from "./BooksList";
+import Navigation from "../Navigation/Navigation";
 export default function Front({ show }) {
   const [books, dispachBooks] = useReducer(reducer, []);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
-  //   const [books, setBooks] = useState([]);
+
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   //   const [search, setSearch] = useState("");
-  // const [autor, setAutor] = useState([]);
+
   //   const [deleteId, setDeleteId] = useState(null);
   useEffect(() => {
     axios.get("http://localhost:3005/books-list/" + show).then((res) => {
@@ -19,18 +20,6 @@ export default function Front({ show }) {
       dispachBooks(getDataFromServer(res.data));
     });
   }, [show, lastUpdate]);
-
-  //   useEffect(() => {
-  //     if (null === deleteId) {
-  //       return;
-  //     }
-  //     axios
-  //       .delete("http://localhost:3005/autors-books/" + deleteId.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         setLastUpdate(Date.now());
-  //       });
-  //   }, [deleteId]);
 
   // const doSearch = (e) => {
   //   setSearch(e.target.value);
@@ -54,12 +43,6 @@ export default function Front({ show }) {
   const toggleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
-  //   useEffect(() => {
-  //     axios.get("http://localhost:3005/autors-books").then((res) => {
-  //       console.log(res.data);
-  //       setBooks(res.data);
-  //     });
-  //   }, [lastUpdate]);
 
   useEffect(() => {
     axios.get("http://localhost:3005/books-manager").then((res) => {
@@ -82,7 +65,7 @@ export default function Front({ show }) {
                 // style={{ display: hamburgerOpen ? "inline" : "none" }}
                 // onClick={toggleHamburger}
               >
-                {/* <Navigation /> */}
+                <Navigation />
               </div>
               <div
                 className={
@@ -139,7 +122,7 @@ export default function Front({ show }) {
           </div>
         </div>
       </div>
-      {/* <div className="container">
+      <div className="container">
         <div className="row-logout">
           <div className="logout">
             <Link className="logout-a" to="/logout">
@@ -147,7 +130,7 @@ export default function Front({ show }) {
             </Link>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* <div className="row-search">
         <div className="oneSearch">
           <label>Search</label>
@@ -156,39 +139,17 @@ export default function Front({ show }) {
       </div> */}
       <div className="container">
         <div className="row">
-          <div className="column-create">
-            {/* <Create
-              containers={containers}
-              setCreateData={setCreateData}
-              boxes={boxes}
-            ></Create> */}
-          </div>
+          <div className="column-create"></div>
         </div>
       </div>
       <div className="container">
         <div className="row">
           <div className="column-create">
-            {/* <CreateBoxes
-              boxes={boxes}
-              containers={containers}
-              setBoxes={setBoxes}
-              setLastUpdate={setLastUpdate}
-              saveBoxes={saveBoxes}
-            ></CreateBoxes> */}
             <div className="colum-list-front">
               <div className=" card-body-front">
                 <ul>
                   {books.map((book) => (
-                    <BooksList
-                      key={book.id}
-                      book={book}
-
-                      //   container={container}
-                      //   setModalData={setModalData}
-                      //   modalData={modalData}
-                      //   setEditData={setEditData}
-                      //   setDeleteId={setDeleteId}
-                    >
+                    <BooksList key={book.id} book={book}>
                       {" "}
                     </BooksList>
                   ))}
@@ -198,14 +159,6 @@ export default function Front({ show }) {
           </div>
         </div>
       </div>
-      {/* <Edit
-        setEditData={setEditData}
-        setModalData={setModalData}
-        modalData={modalData}
-        containers={containers}
-        boxes={boxes}
-        setDeleteId={setDeleteId}
-      ></Edit> */}
     </>
   );
 }

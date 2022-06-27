@@ -1,13 +1,12 @@
 import { useRef, useState } from "react";
 import getBase64 from "../Functions/getBase64";
-import axios from "axios";
 
 function Create({ setCreateData }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [type, setType] = useState(1);
+
+  const [type, setType] = useState("1");
 
   const fileInput = useRef();
 
@@ -22,7 +21,7 @@ function Create({ setCreateData }) {
           author,
           description,
           photo,
-          price,
+
           type,
         });
       });
@@ -32,15 +31,15 @@ function Create({ setCreateData }) {
         author,
         description,
         photo: null,
-        price,
+
         type,
       });
     }
     setTitle("");
     setAuthor("");
     setDescription("");
-    setPrice(0);
-    setType(1);
+
+    setType("1");
   };
 
   const inputHandler = (e, which) => {
@@ -54,9 +53,7 @@ function Create({ setCreateData }) {
       case "description":
         setDescription(e.target.value);
         break;
-      case "price":
-        setPrice(e.target.value.replace(/,/g, "."));
-        break;
+
       case "type":
         setType(e.target.value);
         break;
@@ -90,55 +87,45 @@ function Create({ setCreateData }) {
           />
           <small className="small">Add new book author here.</small>
 
-          <label>Book price</label>
-          <input
-            type="text"
-            className="form num"
-            onChange={(e) => inputHandler(e, "price")}
-            value={price}
-          />
-          <small className="">Book price.</small>
-        </div>
-
-        <div className="form-group">
-          <label>Photo</label>
-          <input ref={fileInput} type="file" className="form-control" />
-          <small className="form-text text-muted">Items photo.</small>
-        </div>
-
-        <div className="form-group">
-          <label>Boxe's description</label>
-          <textarea
-            type="text"
-            className="form num "
-            onChange={(e) => inputHandler(e, "description")}
-            value={description}
-          />
-        </div>
-        <div className="">
           <div className="form-group">
-            <label>Book type</label>
-            <select
-              className="form"
-              onChange={(e) => inputHandler(e, "type")}
-              value={type}
-            >
-              <option value="1">Documentary</option>
-              <option value="2">Animation</option>
-              <option value="3">Drama</option>
-            </select>
-            <small className="">Book type</small>
+            <label>Photo</label>
+            <input ref={fileInput} type="file" className="form-control" />
+            <small className="form-text text-muted">Items photo.</small>
+          </div>
+
+          <div className="form-group">
+            <label>Boxe's description</label>
+            <textarea
+              type="text"
+              className="form num "
+              onChange={(e) => inputHandler(e, "description")}
+              value={description}
+            />
+          </div>
+          <div className="">
+            <div className="form-group">
+              <label>Book type</label>
+              <select
+                className="form"
+                onChange={(e) => inputHandler(e, "type")}
+                value={type}
+              >
+                <option value="1">Documentary</option>
+                <option value="2">Animation</option>
+                <option value="3">Drama</option>
+              </select>
+              <small className="">Book type</small>
+            </div>
+          </div>
+          <div className="list-buttons">
+            <button type="button" className="btn-modal" onClick={buttonHandler}>
+              Add
+            </button>
           </div>
         </div>
-        <div className="list-buttons">
-          <button type="button" className="btn-modal" onClick={buttonHandler}>
-            Add
-          </button>
-        </div>
       </div>
+      //{" "}
     </div>
-
-    // </div>
   );
 }
 export default Create;

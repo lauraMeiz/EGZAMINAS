@@ -18,14 +18,14 @@ function BooksList({ book, setDeleteId, setModalData }) {
           <button
             type="button"
             className="btn-modal "
-            //   onClick={() => setModalData(book)}
+            onClick={() => setModalData(book)}
           >
             Edit
           </button>
           <button
             type="button"
             className="btn-delete "
-            //   onClick={() => setDeleteId({ id: book.id })}
+            onClick={() => setDeleteId({ id: book.id })}
           >
             Delete
           </button>

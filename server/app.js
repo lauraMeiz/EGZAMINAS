@@ -80,8 +80,8 @@ app.post("/books-manager", (req, res) => {
   // VALUES (value1, value2, value3, ...);
   const sql = `
          INSERT INTO books
-         (title, author, description, photo, price, type)
-         VALUES (?, ?, ?, ?, ?, ?)
+         (title, author, description, photo, type)
+         VALUES (?, ?, ?, ?, ?)
       `;
 
   con.query(
@@ -91,7 +91,6 @@ app.post("/books-manager", (req, res) => {
       req.body.author,
       req.body.description,
       req.body.photo,
-      req.body.price,
       req.body.type,
     ],
     (err, results) => {
@@ -103,6 +102,71 @@ app.post("/books-manager", (req, res) => {
     }
   );
 });
+
+// DELETE FROM table_name
+// WHERE some_column = some_value
+app.delete("/books-manager/:id", (req, res) => {
+  const sql = `
+        DELETE FROM books
+        WHERE id = ?
+        `;
+  con.query(sql, [req.params.id], (err, result) => {
+    if (err) {
+      throw err;
+    }
+    res.send(result);
+  });
+});
+
+// UPDATE table_name
+// SET column1 = value1, column2 = value2, ...
+// WHERE condition;
+app.put("/books-manager/:id", (req, res) => {
+  let sql;
+  let args;
+  if ("" === req.body.photo && req.body.del == 0) {
+    sql = `
+        UPDATE books
+        SET title = ?, author = ?, description = ?, type = ?
+        WHERE id = ?
+    `;
+    args = [
+      req.body.title,
+      req.body.author,
+      req.body.description,
+      req.body.type,
+      req.params.id,
+    ];
+  } else if (1 == req.body.del) {
+    sql = `
+        UPDATE books
+        SET title = ?,  author = ?, description = ?, photo = NULL, type = ?
+        WHERE id = ?
+    `;
+    args = [req.body.title, req.body.type, req.body.weigth, req.params.id];
+  } else {
+    sql = `
+      UPDATE books
+      SET title = ?, author = ?, description = ?, photo = ?, type = ?
+      WHERE id = ?
+  `;
+    args = [
+      req.body.title,
+      req.body.author,
+      req.body.description,
+      req.body.photo,
+      req.body.type,
+      req.params.id,
+    ];
+  }
+  con.query(sql, args, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+  });
+});
+
 // Route
 
 app.listen(port, () => {
