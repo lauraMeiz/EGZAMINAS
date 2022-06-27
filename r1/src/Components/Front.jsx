@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { getDataFromServer } from "../Actions";
 import reducer from "../Reducer/reducer";
-import BooksList from "./BooksList";
+import BooksList from "./Front/BooksList";
 import Navigation from "../Navigation/Navigation";
 export default function Front({ show }) {
   const [books, dispachBooks] = useReducer(reducer, []);
@@ -76,7 +76,7 @@ export default function Front({ show }) {
                 <Link className="nav-link" to="/drama">
                   Drama
                 </Link>
-                <Link className="nav-link" to="/admin">
+                <Link className="nav-link" to="/login">
                   Admin
                 </Link>
 
@@ -104,21 +104,18 @@ export default function Front({ show }) {
           <div className="column-create"></div>
         </div>
       </div>
-      <div className="container">
-        <div className="row">
-          <div className="column-create">
-            <div className="colum-list-front">
-              <div className=" card-body-front">
-                <ul>
-                  {books.map((book) => (
-                    <BooksList key={book.id} book={book}>
-                      {" "}
-                    </BooksList>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div className="colum-list-front">
+        <div className="list-title">
+          <h2>Books List</h2>
+        </div>
+        <div className=" card-body-front">
+          <ul>
+            {books.map((book) => (
+              <BooksList key={book.id} book={book}>
+                {" "}
+              </BooksList>
+            ))}
+          </ul>
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-import none from "../img/none.png";
+import none from "../../img/none.png";
 
 function BooksList({ book, setDeleteId, setModalData }) {
   return (
@@ -17,22 +17,6 @@ function BooksList({ book, setDeleteId, setModalData }) {
         <div className="image">
           {" "}
           <img src={book.photo ? book.photo : none} alt="photo" />
-        </div>
-        <div className="list-buttons">
-          <button
-            type="button"
-            className="btn-modal "
-            onClick={() => setModalData(book)}
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            className="btn-delete "
-            onClick={() => setDeleteId({ id: book.id })}
-          >
-            Delete
-          </button>
         </div>
       </div>
     </li>
