@@ -21,7 +21,6 @@ function Create({ setCreateData }) {
           author,
           description,
           photo,
-
           type,
         });
       });

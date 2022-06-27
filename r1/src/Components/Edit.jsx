@@ -6,7 +6,7 @@ function Edit({ setModalData, modalData, setEditData }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-
+  const [photo, setPhoto] = useState(null);
   const [type, setType] = useState("1");
   const [id, setId] = useState("0"); //butinai kitaip neveiks
 
@@ -33,7 +33,6 @@ function Edit({ setModalData, modalData, setEditData }) {
         author,
         description,
         photo: "",
-
         type,
         id,
       });
@@ -66,13 +65,13 @@ function Edit({ setModalData, modalData, setEditData }) {
       setTitle("");
       setAuthor("");
       setDescription("");
-
+      setPhoto(null);
       setType("1");
     } else {
       setTitle(modalData.title);
       setAuthor(modalData.author);
       setDescription(modalData.description);
-
+      setPhoto(modalData.photo);
       setType(modalData.type);
       setId(modalData.id);
     }
@@ -125,16 +124,25 @@ function Edit({ setModalData, modalData, setEditData }) {
                 <div className="form-group">
                   <label>Photo</label>
                   <input ref={fileInput} type="file" className="form-control" />
-                  <small className="form-text text-muted">Tree photo.</small>
+                  <small className="form-text text-muted">Book photo.</small>
                 </div>
+              </div>
+              <div className="form-group">
+                <label>Boxe's description</label>
+                <textarea
+                  type="text"
+                  className="form"
+                  onChange={(e) => inputHandler(e, "description")}
+                  value={description}
+                />
               </div>
               <div className="">
                 <div className="form-group">
-                  <label>Description</label>
+                  <label>Type</label>
                   <select
                     className="form"
-                    onChange={(e) => inputHandler(e, "description")}
-                    value={description}
+                    onChange={(e) => inputHandler(e, "type")}
+                    value={type}
                   >
                     <option value="1">Documentary</option>
                     <option value="2">Animation</option>

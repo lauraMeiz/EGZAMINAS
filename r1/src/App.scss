@@ -64,6 +64,11 @@
     margin: 10px calc(50% - 350px);
     padding: 0px;
   }
+  @media (max-width: 400px) {
+    width: 200px;
+    margin: 10px calc(50% - 100px);
+    padding: 0px;
+  }
   .oneSearch {
     display: flex;
     flex-direction: row;

@@ -185,6 +185,7 @@ app.delete("/books-manager/:id", (req, res) => {
 // SET column1 = value1, column2 = value2, ...
 // WHERE condition;
 app.put("/books-manager/:id", (req, res) => {
+  console.log(req.body);
   let sql;
   let args;
   if ("" === req.body.photo && req.body.del == 0) {
@@ -206,7 +207,14 @@ app.put("/books-manager/:id", (req, res) => {
         SET title = ?,  author = ?, description = ?, photo = NULL, type = ?
         WHERE id = ?
     `;
-    args = [req.body.title, req.body.type, req.body.weigth, req.params.id];
+    args = [
+      req.body.title,
+      req.body.author,
+      req.body.description,
+      req.body.photo,
+      req.body.type,
+      req.params.id,
+    ];
   } else {
     sql = `
       UPDATE books
